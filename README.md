@@ -1,6 +1,6 @@
 # Binary-Search-Tree
-Dieses Projekt ist eine einfache Implementierung eines Binary Search Tree (BST) in Java.
-Der Baum unterstützt das Einfügen, Suchen und verschiedene Traversierungen von Werten.
+Dieses Projekt ist eine Implementierung eines Binary Search Tree in Java.
+Der Baum unterstützt das Einfügen, Suchen und Traversieren von Werten.
 
 
 
@@ -13,7 +13,7 @@ Funktionen:
   - Inorder
   - Postorder
     
-- Strukturierte Ausgabe des Baums in der Konsole (printTree)
+- printTree zur Konsolenausgabe
 - Zugriff auf linke und rechte Teilbäume
 
 
