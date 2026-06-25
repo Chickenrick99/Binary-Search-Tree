@@ -1,0 +1,157 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class BinaryTree {
+
+    private Knoten root;
+
+    private static class Knoten {
+        Integer value;
+        Knoten left;
+        Knoten right;
+
+        public Knoten(Integer value) {
+            this.value = value;
+        }
+    }
+
+    // Konstruktoren
+    public BinaryTree() {
+        this.root = null;
+    }
+
+    public BinaryTree(Integer rootValue) {
+        this.root = new Knoten(rootValue);
+    }
+
+    public BinaryTree(Integer rootValue, BinaryTree leftTree, BinaryTree rightTree) {
+        this.root = new Knoten(rootValue);
+        if (leftTree != null) this.root.left = leftTree.root;
+        if (rightTree != null) this.root.right = rightTree.root;
+    }
+
+    // isEmpty
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+    // Root
+    public Integer getRootValue() {
+        if (isEmpty()) throw new RuntimeException("Tree ist leer!");
+        return root.value;
+    }
+
+    public void setRootValue(Integer value) {
+        if (root == null) root = new Knoten(value);
+        else root.value = value;
+    }
+
+    // Traversals
+    public List<Integer> preorderTraversal() {
+        List<Integer> result = new ArrayList<>();
+        preorder(root, result);
+        return result;
+    }
+
+    private void preorder(Knoten node, List<Integer> result) {
+        if (node != null) {
+            result.add(node.value);
+            preorder(node.left, result);
+            preorder(node.right, result);
+        }
+    }
+
+    public List<Integer> inorderTraversal() {
+        List<Integer> result = new ArrayList<>();
+        inorder(root, result);
+        return result;
+    }
+
+    private void inorder(Knoten node, List<Integer> result) {
+        if (node != null) {
+            inorder(node.left, result);
+            result.add(node.value);
+            inorder(node.right, result);
+        }
+    }
+
+    public List<Integer> postorderTraversal() {
+        List<Integer> result = new ArrayList<>();
+        postorder(root, result);
+        return result;
+    }
+
+    private void postorder(Knoten node, List<Integer> result) {
+        if (node != null) {
+            postorder(node.left, result);
+            postorder(node.right, result);
+            result.add(node.value);
+        }
+    }
+
+    // contains
+    public boolean contains(Integer value) {
+        Knoten temp = root;
+
+        while (temp != null) {
+            if (value.equals(temp.value)) return true;
+            if (value < temp.value) temp = temp.left;
+            else temp = temp.right;
+        }
+        return false;
+    }
+
+    // Insert
+    public void insert(Integer value) {
+        Knoten neu = new Knoten(value);
+
+        if (root == null) {
+            root = neu;
+            return;
+        }
+
+        Knoten temp = root;
+
+        while (true) {
+
+            if (value < temp.value) {
+                if (temp.left == null) {
+                    temp.left = neu;
+                    return;
+                }
+                temp = temp.left;
+            } else {
+                if (temp.right == null) {
+                    temp.right = neu;
+                    return;
+                }
+                temp = temp.right;
+            }
+        }
+    }
+
+    // Print
+    public void printTree(BinaryTree tree, String prefix, boolean isLeft) {
+        if (tree == null || tree.isEmpty()) return;
+
+        System.out.println(prefix + (isLeft ? "├── " : "└── ") + tree.getRootValue());
+
+        String childPrefix = prefix + (isLeft ? "│   " : "    ");
+
+        printTree(tree.getLeftSubTree(), childPrefix, true);
+        printTree(tree.getRightSubTree(), childPrefix, false);
+    }
+
+    // Subtrees
+    public BinaryTree getLeftSubTree() {
+        BinaryTree t = new BinaryTree();
+        t.root = this.root.left;
+        return t;
+    }
+
+    public BinaryTree getRightSubTree() {
+        BinaryTree t = new BinaryTree();
+        t.root = this.root.right;
+        return t;
+    }
+}
