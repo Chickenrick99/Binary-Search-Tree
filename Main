@@ -1,0 +1,20 @@
+public class Main {
+
+    public static void main(String[] args) {
+
+        BinaryTree tree = new BinaryTree();
+
+        // Baum wird sauber als BST aufgebaut
+        tree.insert(8);
+        tree.insert(4);
+        tree.insert(12);
+        tree.insert(2);
+        tree.insert(6);
+        tree.insert(10);
+        tree.insert(14);
+
+
+        // Ausgabe
+        tree.printTree(tree, "", true);
+    }
+}
